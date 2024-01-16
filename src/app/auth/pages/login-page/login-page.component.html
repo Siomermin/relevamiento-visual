@@ -1,0 +1,44 @@
+<h1>Login</h1>
+
+<!-- Loading Spinner -->
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <ion-item>
+    <ion-input label="E-Mail" formControlName="email" type="text"></ion-input>
+    <ion-text color="danger" *ngIf="isValidField('email')">
+      {{ getErrorByField("email") }}</ion-text
+    >
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+      label="Password"
+      formControlName="password"
+      type="text"
+    ></ion-input>
+    <ion-text color="danger" *ngIf="isValidField('password')">
+      {{ getErrorByField("password") }}
+    </ion-text>
+  </ion-item>
+  <ion-button block color="primary" type="submit" [disabled]="myForm.invalid">
+    Login
+  </ion-button>
+</form>
+
+<a routerLink="/auth/register"> No tenes cuenta? Registrate </a>
+
+<!-- Acceso rapido -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button
+      (click)="login(user.email, user.password)"
+      *ngFor="let user of testUsers | slice : 0 : 3"
+    >
+      {{ user.profile }}
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
