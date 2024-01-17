@@ -1,23 +1,16 @@
+<!-- Logout button  -->
+<ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true" class="ion-margin">
+  <ion-fab-button (click)="logout()" size="small" color="danger">
+    <ion-icon name="log-out"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- Home -->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-        <ion-button
-          (click)="logout()"
-          expand="block"
-          shape="round"
-          color="danger"
-        >
-          Logout
-        </ion-button>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>{{ loggedUser?.email }}</strong>
+  <div class="cosas-lindas" routerLink="/cosas/lindas">
+    <p>Cosas lindas</p>
   </div>
-
-  <pre>
-    {{ loggedUser.name }}
-
-  </pre>
+  <div class="cosas-feas" routerLink="/cosas/feas">
+    <p>Cosas feas</p>
+  </div>
 </ion-content>
