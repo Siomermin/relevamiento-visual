@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { PhotoService } from '../shared/services/photo.service';
+import { FirestoreService } from '../shared/services/firestore.service';
+import { CosasType, Photo } from '../shared/interfaces/photo.interface';
 
-type CosasType = 'lindas' | 'feas';
 
 @Component({
   selector: 'app-cosas',
@@ -10,50 +11,55 @@ type CosasType = 'lindas' | 'feas';
   styleUrls: ['./cosas.page.scss'],
 })
 export class CosasPage implements OnInit {
-
   private activatedRoute = inject(ActivatedRoute);
+  private photoService = inject(PhotoService);
+  private firestoreService = inject(FirestoreService);
 
   public cosaType!: CosasType;
+  public photos: Photo[] | undefined = [];
 
-  public photos: any[] = [];
-
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(data => {
+    this.activatedRoute.data.subscribe((data) => {
       const cosasType = data['cosasType'];
       this.cosaType = cosasType;
       console.log('Cosas:', this.cosaType);
-    });
 
-    Camera.requestPermissions();
+      // Call loadPhotos after setting cosaType
+      // this.loadPhotos();
+      this.loadPhotosFirestore();
+    });
+  }
+
+  async loadPhotos() {
+    try {
+      this.photos = await this.photoService.getPhotos().toPromise();
+    } catch (error) {
+      console.error('Error loading photos:', error);
+    }
+  }
+
+  loadPhotosFirestore() {
+    try {
+      this.firestoreService.getPhotosByType(this.cosaType).subscribe((photos) => {
+        console.log(photos);
+        this.photos = photos;
+      });
+    } catch (error) {
+      console.error('Error loading photos:', error);
+    }
   }
 
   likePhoto(): void {
     alert('likeado');
   }
 
-  async takePicture() {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        webUseInput: true,
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Camera
-      });
-
-      // image.webPath will contain a path that can be set as an image src.
-      // You can access the original file using image.path, which can be
-      // passed to the Filesystem API to read the raw data of the image,
-      // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-      this.photos.push(image);
-      console.log(image);
-      // Can be set to the src of an image now
-      // imageElement.src = imageUrl;
-    };
-
-
-
-
+  async takePhoto() {
+    try {
+      await this.photoService.takePhoto(this.cosaType);
+    } catch (error) {
+      console.error('Error adding photo to gallery:', error);
+    }
+  }
 }

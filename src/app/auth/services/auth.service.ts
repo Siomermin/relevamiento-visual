@@ -15,7 +15,7 @@ export class AuthService {
   private validatorsService = inject(ValidatorsService);
   private toastService = inject(ToastService);
 
-  public loggedUser?: any;
+  private loggedUser?: any;
 
   public testUsers: TestUser[] = [
     {
@@ -110,6 +110,11 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const loggedUser = JSON.parse(localStorage.getItem('loggedUser')!);
     return loggedUser !== null;
+  }
+
+  get loggedUserEmail(): string {
+    const loggedUser = JSON.parse(localStorage.getItem('loggedUser')!);
+    return loggedUser.email;
   }
 
   logout() {

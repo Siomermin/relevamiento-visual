@@ -3,13 +3,10 @@
     <h1>Cosas {{ cosaType | titlecase }}</h1>
   </ion-text>
 
-  <!--TODO: @ngfor each card -->
   <ion-card class="ion-margin" *ngFor="let photo of photos">
-    <ion-img
-      [src]="photo.webPath"
-    />
+    <ion-img [src]="photo.url" />
     <ion-card-header class="ion-margin">
-      <ion-card-subtitle>Subida por: admin</ion-card-subtitle>
+      <ion-card-subtitle>Subida por: {{ photo.author }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <div class="likes-container">
@@ -24,7 +21,7 @@
 
 <!-- Boton sacar foto -->
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="ion-margin">
-  <ion-fab-button (click)="takePicture()" size="small" color="danger">
+  <ion-fab-button (click)="takePhoto()" size="small" color="danger">
     <ion-icon name="camera"></ion-icon>
   </ion-fab-button>
 </ion-fab>
