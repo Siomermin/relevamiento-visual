@@ -1,23 +1,36 @@
-<h1>Register</h1>
+<ion-content class="ion-padding">
+<br><br>
+<ion-text class="ion-text-center">
+  <h1>Registro</h1>
+</ion-text>
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<br><br>
+
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <ion-item>
-    <ion-input label="E-Mail"  formControlName="email" type="text"></ion-input>
+    <ion-input label="Correo electrónico"  formControlName="email" type="text"></ion-input>
     <ion-text color="danger" *ngIf="isValidField('email')">
       {{ getErrorByField("email") }}</ion-text
     >
   </ion-item>
 
   <ion-item>
-    <ion-input label="Password"  formControlName="password" type="text"></ion-input>
+    <ion-input label="Contraseña"  formControlName="password" type="password"></ion-input>
     <ion-text color="danger" *ngIf="isValidField('password')">
       {{ getErrorByField("password") }}
     </ion-text>
   </ion-item>
-  <ion-button block color="primary" type="submit" [disabled]="myForm.invalid">
-    Register
+  <ion-button class="ion-padding" color="success" type="submit" expand="block" [disabled]="myForm.invalid">
+    Registrarse
   </ion-button>
 </form>
 
+<br><br>
 
-<a routerLink="/auth/login"> Ya tenes cuenta? Inicia sesion </a>
+<a routerLink="/auth/login">
+  <ion-text color="warning">
+   Ya tenes cuenta? Inicia sesión!
+  </ion-text>
+</a>
+
+</ion-content>

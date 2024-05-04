@@ -11,13 +11,13 @@ import {
   doc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CosasType, Photo } from '../interfaces/photo.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FirestoreService {
+export class photoFirestoreService {
   private coleccion: any;
 
   constructor(private firestore: Firestore) {
@@ -35,24 +35,24 @@ export class FirestoreService {
     const q = query(this.coleccion, where('type', '==', type));
 
     // Fetching data from Firestore using the created query and explicitly defining the type
-    return collectionData<any>(q, { idField: 'id' }) as Observable<Array<any>>;
+    return collectionData<any>(q, { idField: 'id' }) as Observable<Array<Photo>>;
   }
 
   addPhoto(photo: Photo): Promise<DocumentReference<any>> {
-    const col = collection(this.firestore, 'photos');
+    // const col = collection(this.firestore, 'photos');
 
-    return addDoc(col, photo);
+    return addDoc(this.coleccion, photo);
   }
 
   deletePhoto(id: string): Promise<void> {
-    const documento = doc(this.coleccion, id);
-    return deleteDoc(documento);
+    const document = doc(this.coleccion, id);
+    return deleteDoc(document);
   }
 
-  updatePhoto(usuario: any): Promise<void> {
-    const documento = doc(this.coleccion, usuario.id);
-    return updateDoc(documento, {
-      ...usuario,
+  updatePhoto(photo: Photo): Promise<void> {
+    const document = doc(this.coleccion, photo.id);
+    return updateDoc(document, {
+      ...photo,
     });
   }
 }

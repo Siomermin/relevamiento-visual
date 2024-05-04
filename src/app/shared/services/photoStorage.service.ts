@@ -2,16 +2,16 @@ import { Injectable, inject } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Observable, forkJoin, from, map, switchMap, tap } from 'rxjs';
-import { FirestoreService } from './firestore.service';
 import { CosasType, Photo } from '../interfaces/photo.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { photoFirestoreService } from './photoFirestore.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PhotoService {
+export class PhotoStorageService {
   private afStorage = inject(AngularFireStorage);
-  private firestoreService = inject(FirestoreService);
+  private firestoreService = inject(photoFirestoreService);
   private authService = inject(AuthService);
 
   public async takePhoto(cosaType: CosasType) {
@@ -42,6 +42,7 @@ export class PhotoService {
             console.log('Download URL:', downloadUrl);
 
             const photo: Photo = {
+              id: '',
               url: downloadUrl,
               type: cosaType,
               author: this.authService.loggedUserEmail,

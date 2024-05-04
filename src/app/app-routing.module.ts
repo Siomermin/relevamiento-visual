@@ -27,6 +27,13 @@ const routes: Routes = [
     data: { authGuardPipe: () => redirectUnauthorizedTo('auth/login') },
   },
   {
+    path: 'graficos',
+    loadChildren: () =>
+      import('./charts/charts.module').then((m) => m.ChartsModule),
+     canActivate: [AuthGuard],
+     data: { authGuardPipe: () => redirectUnauthorizedTo('auth/login') },
+  },
+  {
     path: '**',
     redirectTo: 'auth',
   },

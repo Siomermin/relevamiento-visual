@@ -48,6 +48,11 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
+  fastLogin(email: string, password: string): void {
+    this.myForm.controls['email'].setValue(email);
+    this.myForm.controls['password'].setValue(password);
+  }
+
   onSubmit(): void {
     const { email, password } = this.myForm.value;
     this.login(email, password);

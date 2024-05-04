@@ -1,0 +1,25 @@
+<ion-content>
+  <ion-text>
+    <h4>Graficos</h4>
+  </ion-text>
+  <ion-card class="ion-margin">
+    <ngx-charts-pie-chart
+      [results]="single"
+      [gradient]="gradient"
+      [labels]="showLabels"
+      [doughnut]="isDoughnut"
+      (select)="onSelect($event)"
+    >
+    </ngx-charts-pie-chart>
+  </ion-card>
+  <ion-card class="ion-margin">
+    <ngx-charts-bar-vertical-2d
+    [results]="multi"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [showYAxisLabel]="showYAxisLabel"
+    (select)="onSelect($event)">
+  </ngx-charts-bar-vertical-2d>
+  </ion-card>
+</ion-content>

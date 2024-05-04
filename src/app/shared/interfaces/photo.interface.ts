@@ -1,6 +1,7 @@
 export type CosasType = 'lindas' | 'feas';
 
 export interface Photo {
+  id: string,
   url: string,
   type: CosasType,
   author: string,

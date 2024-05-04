@@ -8,5 +8,6 @@ export interface TestUser {
   password: string,
   profile: Profile,
   gender: Gender,
-  icon?: string
+  icon?: string,
+  photo?: string
 }

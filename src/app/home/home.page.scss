@@ -1,11 +1,30 @@
 .cosas-lindas, .cosas-feas {
   height: 50%;
+  max-height: 50%;
+  overflow: hidden;
+}
+.texto-superpuesto {
+  font-size: 50px;
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  color: white;
+  font-size: 20px;
 }
 
-.cosas-lindas {
-  background-color: greenyellow;
+
+.texto-superpuesto2 {
+  position: absolute;
+  top: 345px;
+  left: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
 }
 
-.cosas-feas {
-  background-color: red;
-}
+// .cosas-lindas {
+//   background-color: greenyellow;
+// }
+
+// .cosas-feas {
+//   background-color: red;
+// }

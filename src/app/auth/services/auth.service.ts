@@ -15,7 +15,7 @@ export class AuthService {
   private validatorsService = inject(ValidatorsService);
   private toastService = inject(ToastService);
 
-  private loggedUser?: any;
+  public loggedUser?: any;
 
   public testUsers: TestUser[] = [
     {
@@ -24,6 +24,7 @@ export class AuthService {
       password: '111111',
       profile: 'admin',
       gender: 'femenino',
+      photo: '../../../assets/icon-fem.png'
     },
     {
       id: 2,
@@ -31,6 +32,8 @@ export class AuthService {
       password: '222222',
       profile: 'invitado',
       gender: 'femenino',
+      photo: '../../../assets/icon-fem.png'
+
     },
     {
       id: 3,
@@ -38,6 +41,8 @@ export class AuthService {
       password: '333333',
       profile: 'usuario',
       gender: 'masculino',
+      photo: '../../../assets/icon-male.png'
+
     },
     {
       id: 4,
@@ -45,6 +50,8 @@ export class AuthService {
       password: '444444',
       profile: 'usuario',
       gender: 'masculino',
+      photo: '../../../assets/icon-male.png'
+
     },
     {
       id: 5,
@@ -52,6 +59,8 @@ export class AuthService {
       password: '555555',
       profile: 'tester',
       gender: 'femenino',
+      photo: '../../../assets/icon-fem.png'
+
     },
   ];
 

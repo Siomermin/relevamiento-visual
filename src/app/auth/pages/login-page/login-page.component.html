@@ -1,44 +1,65 @@
-<h1>Login</h1>
+<ion-content class="ion-padding">
+  <!-- Loading Spinner -->
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-<!-- Loading Spinner -->
-<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <br><br>
+  <!-- Acceso rapido -->
+  <ion-text class="ion-text-center">
+    <h3>Acceso rápido</h3>
+  </ion-text>
 
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <ion-item>
-    <ion-input label="E-Mail" formControlName="email" type="text"></ion-input>
-    <ion-text color="danger" *ngIf="isValidField('email')">
-      {{ getErrorByField("email") }}</ion-text
-    >
-  </ion-item>
-
-  <ion-item>
-    <ion-input
-      label="Password"
-      formControlName="password"
-      type="text"
-    ></ion-input>
-    <ion-text color="danger" *ngIf="isValidField('password')">
-      {{ getErrorByField("password") }}
-    </ion-text>
-  </ion-item>
-  <ion-button block color="primary" type="submit" [disabled]="myForm.invalid">
-    Login
-  </ion-button>
-</form>
-
-<a routerLink="/auth/register"> No tenes cuenta? Registrate </a>
-
-<!-- Acceso rapido -->
-<ion-fab slot="fixed" vertical="bottom" horizontal="end">
-  <ion-fab-button>
-    <ion-icon name="chevron-up-circle"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-list side="top">
-    <ion-fab-button
-      (click)="login(user.email, user.password)"
+  <div class="img-container ion-margin">
+    <ion-button
+      color="success"
+      size="large"
       *ngFor="let user of testUsers | slice : 0 : 3"
+      (click)="fastLogin(user.email, user.password)"
     >
-      {{ user.profile }}
-    </ion-fab-button>
-  </ion-fab-list>
-</ion-fab>
+      <ion-img [src]="user.photo"></ion-img>
+    </ion-button>
+  </div>
+  <br><br>
+  <ion-text class="ion-text-center">
+    <h1>Iniciar sesión</h1>
+  </ion-text>
+  <br><br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-input
+        label="Correo electrónico"
+        formControlName="email"
+        type="text"
+      ></ion-input>
+      <ion-text color="danger" *ngIf="isValidField('email')">
+        {{ getErrorByField("email") }}</ion-text
+      >
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Contraseña"
+        formControlName="password"
+        type="password"
+      ></ion-input>
+      <ion-text color="danger" *ngIf="isValidField('password')">
+        {{ getErrorByField("password") }}
+      </ion-text>
+    </ion-item>
+    <ion-button
+      class="ion-padding"
+      color="success"
+      type="submit"
+      expand="block"
+      [disabled]="myForm.invalid"
+    >
+      Iniciar sesión
+    </ion-button>
+  </form>
+  <br><br>
+  <a routerLink="/auth/register">
+  <ion-text color="warning">
+    No tenes cuenta? Registrate!
+  </ion-text>
+</a>
+</ion-content>

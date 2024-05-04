@@ -1,16 +1,23 @@
 <!-- Logout button  -->
-<ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true" class="ion-margin">
+<ion-fab slot="fixed" vertical="top" horizontal="end">
   <ion-fab-button (click)="logout()" size="small" color="danger">
     <ion-icon name="log-out"></ion-icon>
   </ion-fab-button>
 </ion-fab>
 
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button routerLink="/graficos" size="small" color="warning">
+    <ion-icon name="ribbon"></ion-icon></ion-fab-button>
+</ion-fab>
+
 <!-- Home -->
 <ion-content [fullscreen]="true">
   <div class="cosas-lindas" routerLink="/cosas/lindas">
-    <p>Cosas lindas</p>
+    <ion-img src="../../assets/cosas-lindas.jpeg"></ion-img>
+    <div class="texto-superpuesto"><h1>Cosas lindas</h1></div>
   </div>
   <div class="cosas-feas" routerLink="/cosas/feas">
-    <p>Cosas feas</p>
+    <ion-img src="../../assets/cosas-feas.jpeg"></ion-img>
+    <div class="texto-superpuesto2"><h1>Cosas feas</h1></div>
   </div>
 </ion-content>
