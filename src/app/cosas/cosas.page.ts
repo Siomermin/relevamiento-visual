@@ -5,6 +5,7 @@ import { CosasType, Photo } from '../shared/interfaces/photo.interface';
 import { photoFirestoreService } from '../shared/services/photoFirestore.service';
 import { LikesService } from '../shared/services/likes.service';
 import { AuthService } from '../auth/services/auth.service';
+import { ToastService } from '../shared/services/toast.service';
 
 
 @Component({
@@ -16,8 +17,9 @@ export class CosasPage implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private photoStorageService = inject(PhotoStorageService);
   private photoFirestoreService = inject(photoFirestoreService);
-  private authService = inject(AuthService); // Inject the LikesService
-  private likesService = inject(LikesService); // Inject the LikesService
+  private authService = inject(AuthService);
+  private likesService = inject(LikesService);
+  private toastService = inject(ToastService);
 
   public cosaType!: CosasType;
   public photos: Photo[] | undefined = [];
@@ -40,6 +42,7 @@ export class CosasPage implements OnInit {
     try {
       this.photos = await this.photoStorageService.getPhotos().toPromise();
     } catch (error) {
+      this.toastService.presentToast('Error al cargar las fotos.', 'middle', 'danger');
       console.error('Error loading photos:', error);
     }
   }
@@ -51,6 +54,7 @@ export class CosasPage implements OnInit {
         this.photos = photos;
       });
     } catch (error) {
+      this.toastService.presentToast('Error al cargar las fotos.', 'middle', 'danger');
       console.error('Error loading photos:', error);
     }
   }
@@ -72,6 +76,7 @@ export class CosasPage implements OnInit {
       })
       .catch(error => {
         console.error('Error liking photo:', error);
+        this.toastService.presentToast('El usuario ya dio me gusta a esta foto.', 'middle', 'danger');
       });
   }
 
@@ -82,6 +87,7 @@ export class CosasPage implements OnInit {
       await this.photoStorageService.takePhoto(this.cosaType);
     } catch (error) {
       console.error('Error adding photo to gallery:', error);
+      this.toastService.presentToast('Error al agregar la foto a la galeria.', 'middle', 'danger');
     }
   }
 }
