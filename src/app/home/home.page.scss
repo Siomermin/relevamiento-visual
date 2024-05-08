@@ -1,30 +1,39 @@
-.cosas-lindas, .cosas-feas {
-  height: 50%;
-  max-height: 50%;
+* {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
+}
+img {
+  width: 100%;
+  height: 50vh; /* Mismo alto para ambas imágenes */
+  max-height: 50vh; /* Limita la altura de la imagen inferior */
+  object-fit: cover; /* Mantiene la proporción de aspecto y cubre el contenedor */
 }
 .texto-superpuesto {
   font-size: 50px;
+  font-weight: 800;
   position: absolute;
-  top: 0px;
+  top: 10%;
   left: 10px;
-  color: white;
-  font-size: 20px;
+  color: #000;
+  background-color: #69bb7b; /* Fondo gris oscuro */
+  padding: 10px; /* Añadir padding para mejor legibilidad */
+  border-radius: 5%;
 }
-
 
 .texto-superpuesto2 {
+
   position: absolute;
-  top: 345px;
+  top: 10%; /* Posicionar en la mitad inferior */
   left: 10px;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
+  color: #000;
+
+  background-color: #69bb7b; /* Fondo gris oscuro */
+  padding: 10px; /* Añadir padding para mejor legibilidad */
+  border-radius: 5%;
 }
 
-// .cosas-lindas {
-//   background-color: greenyellow;
-// }
-
-// .cosas-feas {
-//   background-color: red;
-// }
+h1 {
+  font-size: 20px;
+  font-weight: 800;
+}

@@ -37,6 +37,10 @@ export class PhotoChartsPage implements OnInit {
         value: photo.likes || 0, // adjust based on your data
       }));
 
+    });
+
+    this.photoFirestoreService.getPhotosByType('feas').subscribe(photos => {
+
       this.multi = photos.map(photo => ({
         name: photo.author, // or any property you want to display
         series: [

@@ -1,20 +1,20 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'relevaminto-visual',
-  appName: 'relevaminto-visual',
+  appId: 'relevamiento-visual',
+  appName: 'Relevamiento visual',
   webDir: 'www',
   server: {
     androidScheme: 'https'
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 3000,
-   //   launchAutoHide: true,
-      launchFadeOutDuration: 3000,
+      launchShowDuration: 2000,
+    launchAutoHide: true,
+      launchFadeOutDuration: 2000,
       backgroundColor: "#ffffffff",
-    //  androidSplashResourceName: "splash",
-     // androidScaleType: "CENTER_CROP",
+      androidSplashResourceName: "splash",
+      androidScaleType: "CENTER_CROP",
       splashFullScreen: true,
       splashImmersive: true,
     },
