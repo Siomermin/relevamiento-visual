@@ -15,9 +15,11 @@ export class PhotoChartsPage implements OnInit {
   single: any[] = [];
   // options
   gradient: boolean = true;
-  showLabels: boolean = true;
+  showLabels: boolean = false;
   isDoughnut: boolean = false;
 
+
+  view: any = [400, 400];
 
 
 
