@@ -13,6 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { CosasType, Photo } from '../interfaces/photo.interface';
+import { orderBy } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -32,12 +33,12 @@ export class photoFirestoreService {
   }
 
   getPhotosByType(type: CosasType): Observable<Array<Photo>> {
-    const q = query(this.coleccion, where('type', '==', type));
+    // Create the query with the type filter and order by timestamp descending
+    const q = query(this.coleccion, where('type', '==', type), orderBy('timestamp', 'desc'));
 
-    // Fetching data from Firestore using the created query and explicitly defining the type
+    // Fetch data with explicit type definition
     return collectionData<any>(q, { idField: 'id' }) as Observable<Array<Photo>>;
   }
-
   addPhoto(photo: Photo): Promise<DocumentReference<any>> {
     // const col = collection(this.firestore, 'photos');
 

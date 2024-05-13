@@ -40,13 +40,15 @@ export class PhotoStorageService {
         downloadURL$.subscribe(
           (downloadUrl) => {
             console.log('Download URL:', downloadUrl);
+            const timestamp = Date.now();
 
             const photo: Photo = {
               id: '',
               url: downloadUrl,
               type: cosaType,
               author: this.authService.loggedUserEmail,
-              likes: 0
+              likes: 0,
+              timestamp: timestamp
             };
 
             // Add the photo object to Firestore
