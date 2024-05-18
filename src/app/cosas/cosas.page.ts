@@ -80,8 +80,6 @@ export class CosasPage implements OnInit {
       });
   }
 
-
-
   async takePhoto() {
     try {
       await this.photoStorageService.takePhoto(this.cosaType);
@@ -89,5 +87,11 @@ export class CosasPage implements OnInit {
       console.error('Error adding photo to gallery:', error);
       this.toastService.presentToast('Error al agregar la foto a la galeria.', 'middle', 'danger');
     }
+  }
+
+
+  formatTimestamp(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString(); //+ ' ' + date.toLocaleTimeString();
   }
 }

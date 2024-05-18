@@ -4,6 +4,12 @@
   gap: 10px;
 }
 
+ion-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .card-image {
   object-fit: cover; /* This resizes the image to fit the container */
   width: 100%; /* This ensures the image fills the card's width */
