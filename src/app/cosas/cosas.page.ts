@@ -42,7 +42,7 @@ export class CosasPage implements OnInit {
     try {
       this.photos = await this.photoStorageService.getPhotos().toPromise();
     } catch (error) {
-      this.toastService.presentToast('Error al cargar las fotos.', 'middle', 'danger');
+      this.toastService.presentToast('Error al cargar las fotos!', 'middle', 'danger');
       console.error('Error loading photos:', error);
     }
   }
@@ -54,7 +54,7 @@ export class CosasPage implements OnInit {
         this.photos = photos;
       });
     } catch (error) {
-      this.toastService.presentToast('Error al cargar las fotos.', 'middle', 'danger');
+      this.toastService.presentToast('Error al cargar las fotos!', 'middle', 'danger');
       console.error('Error loading photos:', error);
     }
   }
@@ -76,16 +76,17 @@ export class CosasPage implements OnInit {
       })
       .catch(error => {
         console.error('Error liking photo:', error);
-        this.toastService.presentToast('El usuario ya dio me gusta a esta foto.', 'middle', 'danger');
+        this.toastService.presentToast('El usuario ya dio me gusta a esta foto!', 'middle', 'danger');
       });
   }
 
   async takePhoto() {
     try {
       await this.photoStorageService.takePhoto(this.cosaType);
+      this.toastService.presentToast('Foto subida exitosamente!', 'middle', 'success');
     } catch (error) {
       console.error('Error adding photo to gallery:', error);
-      this.toastService.presentToast('Error al agregar la foto a la galeria.', 'middle', 'danger');
+      this.toastService.presentToast('Error al agregar la foto a la galeria!', 'middle', 'danger');
     }
   }
 
