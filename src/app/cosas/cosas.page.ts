@@ -21,6 +21,7 @@ export class CosasPage implements OnInit {
   private likesService = inject(LikesService);
   private toastService = inject(ToastService);
 
+  public isLoading: boolean = false;
   public cosaType!: CosasType;
   public photos: Photo[] | undefined = [];
 
@@ -28,13 +29,16 @@ export class CosasPage implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
+      this.isLoading = true;
       const cosasType = data['cosasType'];
       this.cosaType = cosasType;
       console.log('Cosas:', this.cosaType);
 
       // Call loadPhotos after setting cosaType
       // this.loadPhotos();
-      this.loadPhotosFirestore();
+      setTimeout(() => {
+        this.loadPhotosFirestore();
+      }, 2000);
     });
   }
 
@@ -52,6 +56,7 @@ export class CosasPage implements OnInit {
       this.photoFirestoreService.getPhotosByType(this.cosaType).subscribe((photos) => {
         console.log(photos);
         this.photos = photos;
+        this.isLoading = false;
       });
     } catch (error) {
       this.toastService.presentToast('Error al cargar las fotos!', 'middle', 'danger');

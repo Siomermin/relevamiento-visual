@@ -1,4 +1,6 @@
 <ion-content [fullscreen]="true">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
   <ion-text class="ion-text-center">
     <h1>Cosas {{ cosaType | titlecase }}</h1>
   </ion-text>

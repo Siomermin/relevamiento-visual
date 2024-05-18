@@ -8,6 +8,7 @@ import { CosasPageRoutingModule } from './cosas-routing.module';
 
 import { CosasPage } from './cosas.page';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     IonicModule,
     CosasPageRoutingModule,
     RouterModule,
+    SharedModule
   ],
   declarations: [CosasPage],
 })
