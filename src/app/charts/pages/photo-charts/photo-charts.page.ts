@@ -44,7 +44,7 @@ export class PhotoChartsPage implements OnInit {
     this.photoFirestoreService.getPhotosByType('feas').subscribe(photos => {
 
       this.multi = photos.map(photo => ({
-        name: photo.author, // or any property you want to display
+        name: '',
         series: [
           {
             name: photo.author,
