@@ -11,9 +11,9 @@ import {
   doc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CosasType, Photo } from '../interfaces/photo.interface';
-import { orderBy } from 'firebase/firestore';
+import { limit, orderBy } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +39,20 @@ export class photoFirestoreService {
     // Fetch data with explicit type definition
     return collectionData<any>(q, { idField: 'id' }) as Observable<Array<Photo>>;
   }
+
+  getPhotoByFilename(filename: string): Observable<Photo | undefined> {
+    // Create the query with the filename filter, limit to 1, and order by timestamp descending
+    const q = query(this.coleccion, where('filename', '==', filename), limit(1));
+
+    // Fetch data with explicit type definition
+    return collectionData<any>(q, { idField: 'id' })
+      .pipe(
+        // Use map to return the first photo (or undefined if none found)
+        map(photos => photos.length > 0 ? photos[0] : undefined)
+      );
+  }
+
+
   addPhoto(photo: Photo): Promise<DocumentReference<any>> {
     // const col = collection(this.firestore, 'photos');
 

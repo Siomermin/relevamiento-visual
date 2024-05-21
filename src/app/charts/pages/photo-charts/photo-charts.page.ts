@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { Photo } from 'src/app/shared/interfaces/photo.interface';
 import { photoFirestoreService } from 'src/app/shared/services/photoFirestore.service';
+import { AlertController, IonicSafeString } from '@ionic/angular';
 
 @Component({
   selector: 'app-photo-charts',
@@ -10,53 +11,85 @@ import { photoFirestoreService } from 'src/app/shared/services/photoFirestore.se
 })
 export class PhotoChartsPage implements OnInit {
   private photoFirestoreService = inject(photoFirestoreService);
-
+  private alertController = inject(AlertController);
 
   single: any[] = [];
-  // options
+  multi: any[] = [];
+
   gradient: boolean = true;
   showLabels: boolean = false;
   isDoughnut: boolean = false;
-
-
-  view: any = [400, 400];
-
-
-
-  // options
-  multi: any[] = [];
-
   showXAxis: boolean = true;
   showYAxis: boolean = true;
   showYAxisLabel: boolean = true;
+  view: any = [400, 400];
 
+  private isAlertPresenting: boolean = false; // Flag to track alert state
 
   ngOnInit(): void {
-    this.photoFirestoreService.getPhotosByType('lindas').subscribe(photos => {
-      // Map your data to ngx-charts format
-      this.single = photos.map(photo => ({
-        name: photo.author, // or any property you want to display
-        value: photo.likes || 0, // adjust based on your data
+    this.photoFirestoreService.getPhotosByType('lindas').subscribe((photos) => {
+      this.single = photos.map((photo) => ({
+        name: photo.filename,
+        value: photo.likes || 0,
       }));
-
     });
 
-    this.photoFirestoreService.getPhotosByType('feas').subscribe(photos => {
-
-      this.multi = photos.map(photo => ({
+    this.photoFirestoreService.getPhotosByType('feas').subscribe((photos) => {
+      this.multi = photos.map((photo) => ({
         name: '',
         series: [
           {
-            name: photo.author,
-            value:  photo.likes || 0
-          }
-         ], // adjust based on your data
+            name: photo.filename,
+            value: photo.likes || 0,
+          },
+        ],
       }));
     });
   }
 
+  onSelect(data: any) {
+    if (this.isAlertPresenting) {
+      return; // Prevent multiple alerts
+    }
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    const clickedFilename = data.series ? data.series[0].name : data.name;
+
+    try {
+      this.photoFirestoreService.getPhotoByFilename(clickedFilename).subscribe(photo => {
+        if (photo && !this.isAlertPresenting) {
+          console.log(photo);
+          this.presentPhotoAlert(photo);
+        } else {
+          console.error('Photo not found with filename:', clickedFilename);
+        }
+      });
+
+    } catch (error) {
+      console.error('Error fetching photo:', error);
+    }
+  }
+
+  async presentPhotoAlert(photo: Photo) {
+    if (!photo) {
+      console.error('No photo found for selected filename.');
+      return;
+    }
+
+    this.isAlertPresenting = true; // Set flag to true when alert is being presented
+
+    const alert = await this.alertController.create({
+      backdropDismiss: true,
+      message: new IonicSafeString(`<img src="${photo.url}" alt="photo" style="height: 300px; width: auto;" />`),
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    await alert.present();
+    await alert.onDidDismiss(); // Wait for alert to be dismissed
+    this.isAlertPresenting = false; // Reset flag when alert is dismissed
   }
 }

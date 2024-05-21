@@ -48,7 +48,8 @@ export class PhotoStorageService {
               type: cosaType,
               author: this.authService.loggedUserEmail,
               likes: 0,
-              timestamp: timestamp
+              timestamp: timestamp,
+              filename: `${this.authService.loggedUserEmail}-${new Date().getTime()}.jpg`,
             };
 
             // Add the photo object to Firestore

@@ -16,7 +16,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({innerHTMLTemplatesEnabled: true}),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     provideAuth(() => getAuth()),

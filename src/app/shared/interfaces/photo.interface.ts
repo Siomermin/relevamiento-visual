@@ -6,5 +6,6 @@ export interface Photo {
   type: CosasType,
   author: string,
   likes: number,
-  timestamp: number
+  timestamp: number,
+  filename: string
 }
