@@ -32,6 +32,14 @@ export class photoFirestoreService {
     return collectionData<any>(q, { idField: 'id' }) as Observable<Array<any>>;
   }
 
+  getPhotosByAuthor(author: string): Observable<Array<Photo>> {
+    // Create the query with the type filter and order by timestamp descending
+    const q = query(this.coleccion, where('author', '==', author), orderBy('timestamp', 'desc'));
+
+    // Fetch data with explicit type definition
+    return collectionData<any>(q, { idField: 'id' }) as Observable<Array<Photo>>;
+  }
+
   getPhotosByType(type: CosasType): Observable<Array<Photo>> {
     // Create the query with the type filter and order by timestamp descending
     const q = query(this.coleccion, where('type', '==', type), orderBy('timestamp', 'desc'));

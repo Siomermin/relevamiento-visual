@@ -6,7 +6,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PhotoChartsPage } from './pages/photo-charts/photo-charts.page';
 import { IonicModule } from '@ionic/angular';
 
-
 @NgModule({
   declarations: [
     PhotoChartsPage,

@@ -1,0 +1,28 @@
+<ion-content [fullscreen]="true">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+  <ion-text class="ion-text-center">
+    <h1>Fotos de: {{ loggedUser.email }}</h1>
+  </ion-text>
+
+  <ion-card class="ion-margin" *ngFor="let photo of photos">
+    <ion-img class="card-image" [src]="photo.url"/>
+    <ion-card-header class="ion-margin">
+      <ion-card-subtitle>Cosas: {{ photo.type }} </ion-card-subtitle>
+      <ion-card-subtitle>{{ formatTimestamp(photo.timestamp) }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="likes-container">
+        <ion-button size="small" color="danger" disabled>
+          <ion-icon name="heart"></ion-icon>
+        </ion-button>
+        <ion-text color="white"> {{ photo.likes }} </ion-text>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text color="warning" class="ion-text-center no-photos" *ngIf="photos?.length === 0 && isLoading !== true">
+    <h3>Todavía no se han agregado fotos...</h3>
+  </ion-text>
+
+</ion-content>

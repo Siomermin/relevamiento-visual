@@ -7,38 +7,30 @@
 
 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
   <ion-fab-button routerLink="/graficos" size="small" color="warning">
-    <ion-icon name="ribbon"></ion-icon></ion-fab-button>
+    <ion-icon name="ribbon"></ion-icon
+  ></ion-fab-button>
+</ion-fab>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="start">
+  <ion-fab-button routerLink="/home/user-photos" size="small" color="success">
+    <ion-icon name="images-outline"></ion-icon
+  ></ion-fab-button>
 </ion-fab>
 
 <!-- Home -->
-
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-col size="12" routerLink="/cosas/lindas">
-        <img src="../../assets/cosas-lindas.jpeg">
+        <img src="../../assets/cosas-lindas.jpeg" />
         <div class="texto-superpuesto"><h1>Cosas Lindas</h1></div>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="12"  routerLink="/cosas/feas">
-        <img src="../../assets/cosas-feas.jpeg">
+      <ion-col size="12" routerLink="/cosas/feas">
+        <img src="../../assets/cosas-feas.jpeg" />
         <div class="texto-superpuesto2"><h1>Cosas Feas</h1></div>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-
-<!-- <ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="cosas-lindas" routerLink="/cosas/lindas">
-
-      <div class="texto-superpuesto"><h1>Cosas lindas</h1></div>
-    </div>
-    <div class="cosas-feas" routerLink="/cosas/feas">
-
-      <div class="texto-superpuesto2"><h1>Cosas feas</h1></div>
-    </div>
-  </div>
-
-</ion-content> -->

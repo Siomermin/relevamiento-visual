@@ -1,0 +1,32 @@
+ion-content {
+  --background: #4C5341;
+}
+
+.likes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+ion-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-image {
+  object-fit: cover; /* This resizes the image to fit the container */
+  width: 100%; /* This ensures the image fills the card's width */
+  height: 200px; /* Set your desired height here (adjust as needed) */
+}
+
+ion-card {
+  max-width: 500px;
+}
+
+.no-photos {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
