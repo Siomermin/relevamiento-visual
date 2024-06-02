@@ -14,6 +14,15 @@ ion-card-header {
   justify-content: space-between;
 }
 
+
+.no-photos {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+
 .card-image {
   object-fit: cover; /* This resizes the image to fit the container */
   width: 100%; /* This ensures the image fills the card's width */

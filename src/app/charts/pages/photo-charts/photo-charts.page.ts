@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { Photo } from 'src/app/shared/interfaces/photo.interface';
 import { photoFirestoreService } from 'src/app/shared/services/photoFirestore.service';
@@ -9,9 +10,10 @@ import { AlertController, IonicSafeString } from '@ionic/angular';
   templateUrl: './photo-charts.page.html',
   styleUrls: ['./photo-charts.page.scss'],
 })
-export class PhotoChartsPage implements OnInit {
+export class PhotoChartsPage implements OnInit, OnDestroy {
   private photoFirestoreService = inject(photoFirestoreService);
   private alertController = inject(AlertController);
+  private subscriptions: Subscription = new Subscription();
 
   single: any[] = [];
   multi: any[] = [];
@@ -27,14 +29,14 @@ export class PhotoChartsPage implements OnInit {
   private isAlertPresenting: boolean = false; // Flag to track alert state
 
   ngOnInit(): void {
-    this.photoFirestoreService.getPhotosByType('lindas').subscribe((photos) => {
+    const lindasSubscription = this.photoFirestoreService.getPhotosByType('lindas').subscribe((photos) => {
       this.single = photos.map((photo) => ({
         name: photo.filename,
         value: photo.likes || 0,
       }));
     });
 
-    this.photoFirestoreService.getPhotosByType('feas').subscribe((photos) => {
+    const feasSubscription = this.photoFirestoreService.getPhotosByType('feas').subscribe((photos) => {
       this.multi = photos.map((photo) => ({
         name: '',
         series: [
@@ -45,6 +47,13 @@ export class PhotoChartsPage implements OnInit {
         ],
       }));
     });
+
+    this.subscriptions.add(lindasSubscription);
+    this.subscriptions.add(feasSubscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   onSelect(data: any) {
@@ -55,7 +64,7 @@ export class PhotoChartsPage implements OnInit {
     const clickedFilename = data.series ? data.series[0].name : data.name;
 
     try {
-      this.photoFirestoreService.getPhotoByFilename(clickedFilename).subscribe(photo => {
+      const photoSubscription = this.photoFirestoreService.getPhotoByFilename(clickedFilename).subscribe(photo => {
         if (photo && !this.isAlertPresenting) {
           console.log(photo);
           this.presentPhotoAlert(photo);
@@ -64,6 +73,7 @@ export class PhotoChartsPage implements OnInit {
         }
       });
 
+      this.subscriptions.add(photoSubscription);
     } catch (error) {
       console.error('Error fetching photo:', error);
     }

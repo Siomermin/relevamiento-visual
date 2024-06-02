@@ -87,7 +87,9 @@ export class CosasPage implements OnInit {
 
   async takePhoto() {
     try {
+      this.isLoading = true;
       await this.photoStorageService.takePhoto(this.cosaType);
+      this.isLoading = false;
       this.toastService.presentToast('Foto subida exitosamente!', 'middle', 'success');
     } catch (error) {
       console.error('Error adding photo to gallery:', error);
