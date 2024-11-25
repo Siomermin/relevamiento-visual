@@ -1,4 +1,4 @@
-# 📸 Relevamiento Visual - PPS
+# 📸 Relevamiento Visual - Práctica Profesional
 
 ## 📝 Consigna
 
